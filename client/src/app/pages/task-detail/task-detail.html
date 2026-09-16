@@ -1,0 +1,278 @@
+
+<div class="task-detail-container">
+
+  <h1>Task Details</h1>
+
+  @if (loading()) {
+    <p>Loading task...</p>
+  }
+
+  @if (errorMessage()) {
+    <p class="error-message">
+      {{ errorMessage() }}
+    </p>
+  }
+
+  @if (!loading() && task()) {
+
+    <div class="task-detail-card">
+
+      <h2>{{ task().title }}</h2>
+
+      <div class="task-info">
+
+        <p>
+          <strong>Description:</strong>
+          {{ task().description }}
+        </p>
+
+        <p>
+          <strong>Category:</strong>
+          {{ task().category }}
+        </p>
+
+        <p>
+          <strong>Priority:</strong>
+          {{ task().priority }}
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          {{ task().status }}
+        </p>
+
+
+        <!-- UPDATE STATUS -->
+        @if (canUpdateStatus()) {
+
+          <div class="status-update">
+
+            <h3>Update Status</h3>
+
+            <select [(ngModel)]="selectedStatus">
+
+              <option value="">
+                Select Status
+              </option>
+
+              <option value="Open">
+                Open
+              </option>
+
+              <option value="In Progress">
+                In Progress
+              </option>
+
+              <option value="Resolved">
+                Resolved
+              </option>
+
+              <option value="Closed">
+                Closed
+              </option>
+
+            </select>
+
+            <button
+              type="button"
+              (click)="updateStatus()"
+              [disabled]="statusLoading() || !selectedStatus"
+            >
+
+              @if (statusLoading()) {
+                Saving...
+              } @else {
+                Update Status
+              }
+
+            </button>
+
+            @if (statusError()) {
+              <p class="error-message">
+                {{ statusError() }}
+              </p>
+            }
+
+            @if (statusSuccess()) {
+              <p class="success-message">
+                {{ statusSuccess() }}
+              </p>
+            }
+
+          </div>
+
+        }
+
+
+        <p>
+          <strong>Raised By:</strong>
+          {{ task().raisedBy?.name || 'Unknown' }}
+        </p>
+
+        <p>
+          <strong>Assigned To:</strong>
+          {{ task().assignedTo?.name || 'Not Assigned' }}
+        </p>
+
+
+        <!-- ASSIGN / REASSIGN STAFF -->
+        @if (isAdmin()) {
+
+          <div class="staff-assignment">
+
+            <h3>
+              @if (task().assignedTo) {
+                Reassign Staff
+              } @else {
+                Assign Staff
+              }
+            </h3>
+
+            <select [(ngModel)]="selectedStaffId">
+
+              <option value="">
+                Select Staff
+              </option>
+
+              @for (staff of staffMembers(); track staff._id) {
+
+                <option [value]="staff._id">
+                  {{ staff.name }}
+                </option>
+
+              }
+
+            </select>
+
+            <button
+              type="button"
+              (click)="assignStaff()"
+              [disabled]="assignLoading() || !selectedStaffId"
+            >
+
+              @if (assignLoading()) {
+                Saving...
+              } @else if (task().assignedTo) {
+                Save Reassignment
+              } @else {
+                Assign & Save
+              }
+
+            </button>
+
+            @if (assignError()) {
+              <p class="error-message">
+                {{ assignError() }}
+              </p>
+            }
+
+            @if (assignSuccess()) {
+              <p class="success-message">
+                {{ assignSuccess() }}
+              </p>
+            }
+
+          </div>
+
+        }
+
+
+        <p>
+          <strong>Created:</strong>
+          {{ task().createdAt | date:'medium' }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- COMMENTS / UPDATE THREAD -->
+
+    <div class="comments-section">
+
+      <h2>Comments / Updates</h2>
+
+      @if (task().comments?.length === 0) {
+
+        <p>
+          No comments or updates yet.
+        </p>
+
+      }
+
+      @if (task().comments?.length > 0) {
+
+        <div class="comments-list">
+
+          @for (comment of task().comments; track comment._id) {
+
+            <div class="comment-card">
+
+              <p class="comment-message">
+                {{ comment.message }}
+              </p>
+
+              <p class="comment-meta">
+
+                <strong>
+                  {{ comment.createdBy?.name || 'Unknown User' }}
+                </strong>
+
+                -
+
+                {{ comment.createdAt | date:'medium' }}
+
+              </p>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- ADD COMMENT -->
+
+    <div class="add-comment">
+
+      <h3>Add Comment / Update</h3>
+
+      <textarea
+        [(ngModel)]="commentMessage"
+        placeholder="Enter your comment or update..."
+        rows="4"
+      ></textarea>
+
+      @if (commentError()) {
+
+        <p class="error-message">
+          {{ commentError() }}
+        </p>
+
+      }
+
+      <button
+        type="button"
+        (click)="addComment()"
+        [disabled]="commentLoading() || !commentMessage.trim()"
+      >
+
+        @if (commentLoading()) {
+          Adding...
+        } @else {
+          Add Comment
+        }
+
+      </button>
+
+    </div>
+
+  }
+
+</div>
+

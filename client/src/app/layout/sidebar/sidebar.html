@@ -1,0 +1,43 @@
+<aside class="sidebar">
+
+  <nav>
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+    >
+      Dashboard
+    </a>
+
+    <a
+      routerLink="/tasks"
+      routerLinkActive="active"
+    >
+      Tasks
+    </a>
+
+    @if (isEmployee() || isAdmin()) {
+
+      <a
+        routerLink="/tasks/create"
+        routerLinkActive="active"
+      >
+        Create Task
+      </a>
+
+    }
+
+    @if (isAdmin()) {
+
+      <a
+        routerLink="/users/create"
+        routerLinkActive="active"
+      >
+        Create Employee / Staff
+      </a>
+
+    }
+
+  </nav>
+
+</aside>

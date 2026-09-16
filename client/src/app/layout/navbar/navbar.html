@@ -1,0 +1,25 @@
+<nav class="navbar">
+
+  <div class="navbar-left">
+    <h2>Employee Task & Complaint Tracker</h2>
+  </div>
+
+  <div class="navbar-right">
+
+    @if (user()) {
+      <span class="user-name">
+        {{ user().name }}
+      </span>
+
+      <span class="user-role">
+        {{ user().role }}
+      </span>
+    }
+
+    <button (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
+</nav>

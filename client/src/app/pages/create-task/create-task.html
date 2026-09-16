@@ -1,0 +1,187 @@
+<div class="create-task-container">
+
+  <h1>Create Task / Complaint</h1>
+
+  <form
+    [formGroup]="taskForm"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <!-- Title -->
+
+    <div class="form-group">
+
+      <label for="title">
+        Title
+      </label>
+
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        placeholder="Enter task title"
+      />
+
+      @if (
+        taskForm.controls.title.touched &&
+        taskForm.controls.title.invalid
+      ) {
+        <p class="validation-error">
+          Title is required.
+        </p>
+      }
+
+    </div>
+
+
+    <!-- Description -->
+
+    <div class="form-group">
+
+      <label for="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="5"
+        placeholder="Describe the issue or request"
+      ></textarea>
+
+      @if (
+        taskForm.controls.description.touched &&
+        taskForm.controls.description.invalid
+      ) {
+        <p class="validation-error">
+          Description is required.
+        </p>
+      }
+
+    </div>
+
+
+    <!-- Category -->
+
+    <div class="form-group">
+
+      <label for="category">
+        Category
+      </label>
+
+      <select
+        id="category"
+        formControlName="category"
+      >
+        <option value="">
+          Select Category
+        </option>
+
+        <option value="IT">
+          IT
+        </option>
+
+        <option value="Hardware">
+          Hardware
+        </option>
+
+        <option value="Software">
+          Software
+        </option>
+
+        <option value="Facilities">
+          Facilities
+        </option>
+
+        <option value="HR">
+          HR
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+      @if (
+        taskForm.controls.category.touched &&
+        taskForm.controls.category.invalid
+      ) {
+        <p class="validation-error">
+          Category is required.
+        </p>
+      }
+
+    </div>
+
+
+    <!-- Priority -->
+
+    <div class="form-group">
+
+      <label for="priority">
+        Priority
+      </label>
+
+      <select
+        id="priority"
+        formControlName="priority"
+      >
+
+        <option value="Low">
+          Low
+        </option>
+
+        <option value="Medium">
+          Medium
+        </option>
+
+        <option value="High">
+          High
+        </option>
+
+        <option value="Urgent">
+          Urgent
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Error -->
+
+    @if (errorMessage) {
+      <p class="error-message">
+        {{ errorMessage }}
+      </p>
+    }
+
+
+    <!-- Success -->
+
+    @if (successMessage) {
+      <p class="success-message">
+        {{ successMessage }}
+      </p>
+    }
+
+
+    <!-- Submit -->
+
+    <button
+      type="submit"
+      [disabled]="submitting"
+    >
+
+      @if (submitting) {
+        Creating...
+      } @else {
+        Create Task
+      }
+
+    </button>
+
+  </form>
+
+</div>

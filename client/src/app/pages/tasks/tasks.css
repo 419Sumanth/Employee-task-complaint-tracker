@@ -1,0 +1,55 @@
+.tasks-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.tasks-header {
+  margin-bottom: 25px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filters button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #374151;
+  color: white;
+}
+
+.task-list {
+  display: grid;
+  gap: 15px;
+}
+
+.task-card {
+  padding: 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+
+.task-card h3 {
+  margin-top: 0;
+}
+
+.task-card p {
+  margin: 8px 0;
+}
+
+.error-message {
+  color: #dc2626;
+}

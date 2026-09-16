@@ -1,5 +1,5 @@
 import express from "express";
-import { getStaffMembers } from "../controllers/userController.js";
+import { getStaffMembers, createUser } from "../controllers/userController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import authorizeRoles from "../middleware/roleMiddleware.js";
 
@@ -11,6 +11,14 @@ router.get(
   authMiddleware,
   authorizeRoles("admin"),
   getStaffMembers
+);
+
+// Create employee / staff - Admin only
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRoles("admin"),
+  createUser
 );
 
 export default router;

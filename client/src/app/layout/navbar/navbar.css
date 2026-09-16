@@ -1,0 +1,40 @@
+.navbar {
+  height: 60px;
+  padding: 0 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #1f2937;
+  color: white;
+}
+
+.navbar-left h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.navbar button {
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}

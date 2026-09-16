@@ -1,0 +1,126 @@
+<div class="tasks-container">
+
+  <div class="tasks-header">
+    <h1>Tasks</h1>
+  </div>
+
+  <!-- Filters -->
+
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Search by title..."
+      [(ngModel)]="search"
+      (input)="loadTasks()"
+    />
+
+    <select
+      [(ngModel)]="status"
+      (change)="loadTasks()"
+    >
+      <option value="">All Statuses</option>
+      <option value="Open">Open</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Resolved">Resolved</option>
+      <option value="Closed">Closed</option>
+    </select>
+
+    <select
+      [(ngModel)]="category"
+      (change)="loadTasks()"
+    >
+      <option value="">All Categories</option>
+      <option value="IT">IT</option>
+      <option value="Hardware">Hardware</option>
+      <option value="Software">Software</option>
+      <option value="Facilities">Facilities</option>
+      <option value="HR">HR</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <button (click)="clearFilters()">
+      Clear Filters
+    </button>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  @if (loading()) {
+    <p>Loading tasks...</p>
+  }
+
+
+  <!-- Error -->
+
+  @if (errorMessage()) {
+    <p class="error-message">
+      {{ errorMessage() }}
+    </p>
+  }
+
+
+  <!-- No tasks -->
+
+  @if (!loading() && tasks().length === 0) {
+    <p>No tasks found.</p>
+  }
+
+
+  <!-- Tasks -->
+
+  @if (!loading() && tasks().length > 0) {
+
+    <div class="task-list">
+
+      @for (task of tasks(); track task._id) {
+
+        <div class="task-card">
+
+          <h3>
+            <a [routerLink]="['/tasks', task._id]">
+              {{ task.title }}
+            </a>
+          </h3>
+
+          <p>
+            <strong>Description:</strong>
+            {{ task.description }}
+          </p>
+
+          <p>
+            <strong>Category:</strong>
+            {{ task.category }}
+          </p>
+
+          <p>
+            <strong>Priority:</strong>
+            {{ task.priority }}
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            {{ task.status }}
+          </p>
+
+          <p>
+            <strong>Raised By:</strong>
+            {{ task.raisedBy?.name || 'Unknown' }}
+          </p>
+
+          <p>
+            <strong>Assigned To:</strong>
+            {{ task.assignedTo?.name || 'Not Assigned' }}
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

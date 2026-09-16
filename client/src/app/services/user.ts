@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class User {
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5000/api/users';
+  private apiUrl = 'https://employee-task-complaint-tracker-api.onrender.com/api/users';
 
   getStaffMembers() {
     return this.http.get<any>(

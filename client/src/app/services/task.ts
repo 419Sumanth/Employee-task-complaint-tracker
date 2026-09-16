@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class Task {
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5000/api/tasks';
+  private apiUrl = 'https://employee-task-complaint-tracker-api.onrender.com/api/tasks';
 
   createTask(taskData: any) {
     return this.http.post<any>(

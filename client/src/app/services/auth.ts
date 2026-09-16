@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class Auth {
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5000/api/auth';
+ private apiUrl = 'https://employee-task-complaint-tracker-api.onrender.com/api/auth';
 
   login(credentials: any) {
     return this.http.post<any>(
